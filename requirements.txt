@@ -1,5 +1,5 @@
 streamlit
 yt-dlp
-audio-separator
 pydub
+audio-separator[cpu]
 rvc-python
