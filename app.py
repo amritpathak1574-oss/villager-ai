@@ -1,53 +1,42 @@
 import streamlit as st
 import os
 
-# Folders ready rakhna
-os.makedirs("output", exist_ok=True)
+st.title("⛏️ Minecraft Villager AI Singer")
+st.write("Apne fav gaane ka link dalo aur Villager ki voice me suno!")
 
-st.set_page_config(page_title="Minecraft Villager AI Cover", page_icon="🎵")
-st.title("🤠 Minecraft Villager AI Cover Generator")
-st.write("Streamlit Cloud - High Performance Audio Uploader")
+# 1. Input Link
+song_link = st.text_input("Yahan YouTube/Audio Link paste karo:")
 
-st.markdown("---")
-
-# Uploader widget ko thoda clear instruction dete hain
-uploaded_file = st.file_uploader(
-    "🎵 Apne laptop se koi bhi choti MP3 ya WAV file select karo:", 
-    type=["mp3", "wav"],
-    accept_sidebar_input=False
-)
-
-if uploaded_file is not None:
-    # File details screen par dikhayenge taaki pata chale upload hui ya nahi
-    st.success(f"📁 File successfully select ho gayi: **{uploaded_file.name}** ({round(uploaded_file.size / (1024*1024), 2)} MB)")
-    
-    if st.button("🚀 Convert to Villager Voice"):
-        try:
-            with st.spinner("⏳ Cloud server par file process ho rahi hai... thoda sabr rakhein."):
-                input_audio_path = os.path.join("output", "user_audio.mp3")
-                
-                # Chunks me file write karenge taaki server par load na aaye aur upload na atke
-                with open(input_audio_path, "wb") as f:
-                    f.write(uploaded_file.getbuffer())
-                
-                st.info("🎛️ Villager voice apply ho rahi hai...")
-                final_output_path = input_audio_path
-                
-                if os.path.exists(final_output_path):
-                    st.balloons()
-                    st.success("🎉 Aapka Villager AI Song ready hai!")
-                    st.audio(final_output_path, format="audio/mp3")
-                    
-                    with open(final_output_path, "rb") as f:
-                        st.download_button(
-                            label="📥 Download Villager Cover", 
-                            data=f, 
-                            file_name="villager_cover.mp3", 
-                            mime="audio/mp3"
-                        )
-                else:
-                    st.error("Server par file save nahi ho payi.")
-        except Exception as e:
-            st.error(f"Upload ke baad processing me error aaya: {e}")
-else:
-    st.info("💡 Tip: Ek baar me 5-10 MB se choti file upload karke check karo (jaise koi short ringtone ya 1 minute ka gaana), wo turant upload ho jayegi!")
+if st.button("Villager Voice Me Badlo ✨"):
+    if song_link:
+        st.info("Gaana download ho raha hai...")
+        # Code to download audio using yt-dlp
+        
+        st.info("Vocals aur Music alag kiye ja rahe hain...")
+        # Code to separate vocals using Demucs
+        
+        st.info("Villager AI apni aawaz me gaa raha hai... 🎤")
+        # Code to apply Villager RVC model on vocals
+        
+        st.info("Music mix ho raha hai...")
+        # Code to merge final villager vocals + instrumental
+        
+        # Final Output
+        final_audio_path = "output/villager_song.mp3"
+        
+        if os.path.exists(final_audio_path):
+            st.success("Aapka gaana taiyar hai! 🥳")
+            
+            # Play Audio
+            st.audio(final_audio_path, format="audio/mp3")
+            
+            # Download Button
+            with open(final_audio_path, "rb") as file:
+                st.download_button(
+                    label="Villager Ka Gaana Download Karo 📥",
+                    data=file,
+                    file_name="villager_version.mp3",
+                    mime="audio/mp3"
+                )
+    else:
+        st.warning("Pehle ek link to dalo bhai!")
