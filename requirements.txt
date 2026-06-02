@@ -1,5 +1,7 @@
 streamlit
 yt-dlp
 pydub
-audio-separator[cpu]
-rvc-python
+audio-separator
+onnxruntime==1.16.3
+torch==2.1.2+cpu
+--extra-index-url https://download.pytorch.org/whl/cpu
